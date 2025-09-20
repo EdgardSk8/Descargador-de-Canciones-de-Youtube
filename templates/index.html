@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Descarga tu música favorita de YouTube de forma rápida y segura">
+
+    <title>YouTube Music Downloader</title>
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/style-resposive.css">
+    <link rel="stylesheet" href="../static/css/previews.css">
+        <link rel="stylesheet" href="../static/css/previews-resposive.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+
+</head>
+
+<body>
+
+    <div class="Contenedor-General">
+
+        <!-- Header Section -->
+        <header class="Cabecera">
+            <h1 class="Titulo">YouTube Music Downloader</h1>
+            <p class="Sub-Titulo">Descarga tu música favorita de YouTube de forma rápida y sencilla</p>
+        </header>
+
+        <!-- Download Section -->
+        <section class="Seccion-Descarga">
+
+            <h2 class="Seccion-Titulo">Descargar Música</h2>
+            
+            <div class="Seccion-Links">
+                <label class="Label-Text">Pega aquí el enlace de YouTube:</label>
+
+                <div class="Input-Boton">
+                    <input 
+                        type="url" 
+                        id="youtube-url" 
+                        class="url-input" 
+                        placeholder="https://www.youtube.com/watch?v=..." 
+                        required
+                        pattern="https?://(www\.)?youtube\.com/watch\?v=.*"
+                    >
+                    <!-- 🔹 Botón integrado dentro del input -->
+                    <button type="button" class="Btn-Pegar">Pegar📋</button>
+
+                </div>
+            </div>
+
+            <button class="Btn-Buscar-Cancion" data-action="audio-video">Buscar Canción 🎵</button>
+            
+            <div id="preview"></div>
+
+            <div class="loading" style="display:none;">
+
+                <div class="spinner"></div>
+                <p>Cargando información</p>
+
+            </div>
+
+            <div id="barra" style="display:none;">
+
+                <div id="progreso-container">
+                    <div id="barra-progreso"></div>
+                </div>
+                    <p class="informacion-progreso"></p>
+
+            </div>
+
+
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="Seccion-Footer">
+            <p>&copy; 2025 YouTube Music Downloader. Todos los derechos reservados.</p>
+            <p>Respeta los derechos de autor y las políticas de YouTube.</p>
+        </footer>
+
+    </div>
+
+    <!--<script src="../static/script.js"></script> -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

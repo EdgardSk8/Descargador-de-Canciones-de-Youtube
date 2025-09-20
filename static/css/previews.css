@@ -1,0 +1,120 @@
+/* --- Preview --- */
+#preview {
+    max-width: 100%;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    color: #1a1a1a;      /* texto oscuro */
+    display: none;
+}
+
+.preview-titulo {
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #1c3c70; /* título azul suave */
+}
+
+.preview-info {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #555;     /* gris suave */
+    font-size: 0.95rem;
+}
+
+.preview-imagen {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 0.5rem auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* --- Spinner --- */
+.loading {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.spinner {
+    border: 4px solid #ccc;
+    border-top: 4px solid #4caf50;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+    padding: 1rem;
+    margin-bottom: 5px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+.rename-container {
+    margin-top: 10px;
+}
+
+.rename-container label {
+    font-size: 0.8rem;
+    color: #555; /* gris suave oscuro */
+}
+
+.rename-container input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 4px;
+    border-radius: 6px;
+    border: 1px solid #ccc; /* borde visible en claro */
+    outline: none;
+    background: #f9f9f9;    /* fondo claro */
+    color: #1a1a1a;         /* texto oscuro */
+    transition: all 0.2s;
+}
+
+.rename-container input:focus {
+    border-color: #f59e0b; /* naranja suave */
+    box-shadow: 0 0 0 3px rgba(245,158,11,0.2);
+}
+
+/* Botón dinámico de descarga */
+.dynamic-download-btn {
+    margin-top: 10px;
+    padding: 0.7rem 1.5rem;
+    background: #f59e0b;    /* naranja suave */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dynamic-download-btn:hover {
+    background: #d97706;    /* naranja más oscuro al hover */
+}
+
+/* ------------------------------------------------------------------------------- */
+
+#progreso-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    padding: 3px;
+    margin-top: 10px;
+}
+
+#barra-progreso {
+    width: 0%;
+    height: 16px;
+    background-color: #1c7027; /* azul oscuro */
+    border-radius: 6px;
+    transition: width 0.2s ease;
+}
+
+.informacion-progreso {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+}
+
