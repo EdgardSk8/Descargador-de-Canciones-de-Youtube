@@ -34,13 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const durationFormatted = `${minutes}:${seconds.toString().padStart(2,"0")}`;
 
         previewDiv.innerHTML = `
-            <h3 class="preview-titulo">${videoInfo.title}</h3>
-            <p class="preview-info">
+            <h3 class="Titulo-Cancion">${videoInfo.title}</h3>
+            <p class="Informacion-Cancion-p">
                 <strong>Duración:</strong> ${durationFormatted} | 
                 <strong>Uploader:</strong> ${videoInfo.uploader}
             </p>
-            ${videoInfo.thumbnail ? `<img src="${videoInfo.thumbnail}" class="preview-imagen">` : ""}
-            <div class="rename-container">
+            ${videoInfo.thumbnail ? `<img src="${videoInfo.thumbnail}" class="Imagen-Caratula">` : ""}
+            <div class="Contenedor-Renombrar">
                 <label for="rename-title">Renombrar archivo:</label>
                 <input type="text" id="rename-title" 
                     value="${videoInfo.title.replace(/[<>:"/\\|?*]+/g,'')}">

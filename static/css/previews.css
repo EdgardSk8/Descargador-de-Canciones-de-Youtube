@@ -8,7 +8,7 @@
     display: none; /* Div preview oculto */
 }
 
-.preview-titulo {
+.Titulo-Cancion {
     text-align: center; /* Texto centrado */
     font-size: 1.3rem; /* Tamanio de letra */
     margin-bottom: 0.5rem; /* Margen de 0.5 debajo de el */
@@ -22,7 +22,7 @@
     font-size: 0.95rem; /* Tamanio de letra */
 }
 
-.preview-imagen {
+.Imagen-Caratula {
     width: 100%; /* Carga el tamanio 100% de la imagen */
     max-width: 600px; /* tamanio maximo de 600px */
     display: block; /* Mostrar Imagen */
@@ -58,11 +58,11 @@
 
 /* --- Renombrar --- */
 
-.rename-container { margin-top: 10px; } /* Contenedor de input para renombrar, espacio arriba  */
+.Contenedor-Renombrar { margin-top: 10px; } /* Contenedor de input para renombrar, espacio arriba  */
 
-.rename-container label { font-size: 0.8rem; color: #555; } /* Tamanio de letra y color de texto del input de renombrar */
+.Contenedor-Renombrar label { font-size: 0.8rem; color: #555; } /* Tamanio de letra y color de texto del input de renombrar */
 
-.rename-container input {
+.Contenedor-Renombrar input {
     width: 100%; /* ancho completo */
     padding: 0.5rem; /* espacio interno */
     margin-top: 4px; /* espacio arriba */
@@ -74,7 +74,7 @@
     transition: all 0.2s; /* animación suave */
 }
 
-.rename-container input:focus {
+.Contenedor-Renombrar input:focus {
     border-color: #f59e0b; /* borde naranja al enfocar */
     box-shadow: 0 0 0 3px rgba(245,158,11,0.2); /* brillo naranja */
 }
