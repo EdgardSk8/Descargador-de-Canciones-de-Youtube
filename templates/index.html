@@ -8,30 +8,29 @@
 
     <title>YouTube Music Downloader</title>
 
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/style-resposive.css">
-    <link rel="stylesheet" href="../static/css/previews.css">
-        <link rel="stylesheet" href="../static/css/previews-resposive.css">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <link rel="stylesheet" href="../static/css/style.css"> <!-- Estilo general de index -->
+    <link rel="stylesheet" href="../static/css/style-resposive.css"> <!-- Estilo exclusivo para moviles -->
+    <link rel="stylesheet" href="../static/css/previews.css"> <!-- Estilo dinamico cargado desde JS -->
+    <link rel="stylesheet" href="../static/css/previews-resposive.css"> <!-- Estilo exclusivo para moviles -->
 
 </head>
 
 <body>
 
-    <div class="Contenedor-General">
+    <div class="Contenedor-General"> <!-- Contenedor que cubre toda la web -->
 
-        <!-- Header Section -->
+        <!-- Seccion de Cabecera -->
         <header class="Cabecera">
             <h1 class="Titulo">YouTube Music Downloader</h1>
             <p class="Sub-Titulo">Descarga tu música favorita de YouTube de forma rápida y sencilla</p>
         </header>
 
-        <!-- Download Section -->
+        <!-- Seccion de Descarga de canciones mas carga dinamica de JS -->
         <section class="Seccion-Descarga">
 
             <h2 class="Seccion-Titulo">Descargar Música</h2>
-            
-            <div class="Seccion-Links">
+             
+            <div class="Seccion-Links"> <!-- Seccion del input y boton "pegar" -->
                 <label class="Label-Text">Pega aquí el enlace de YouTube:</label>
 
                 <div class="Input-Boton">
@@ -43,32 +42,30 @@
                         required
                         pattern="https?://(www\.)?youtube\.com/watch\?v=.*"
                     >
-                    <!-- 🔹 Botón integrado dentro del input -->
                     <button type="button" class="Btn-Pegar">Pegar📋</button>
-
                 </div>
             </div>
 
-            <button class="Btn-Buscar-Cancion" data-action="audio-video">Buscar Canción 🎵</button>
+            <!-- Btn para buscar cancion -->
+            <button class="Btn-Buscar-Cancion" data-action="audio-video">Buscar Canción 🎵</button> 
             
-            <div id="preview"></div>
+            <div id="Informacion-Cancion"></div> <!-- Div que muestra la carga dinamica de JS (Caratula, Duracion) -->
 
-            <div class="loading" style="display:none;">
+            <div class="loading" style="display:none;"> <!-- Div que carga el "Spinner" de carga -->
 
-                <div class="spinner"></div>
+                <div class="spinner"></div> <!-- Clase Spinner -->
                 <p>Cargando información</p>
 
             </div>
 
-            <div id="barra" style="display:none;">
+            <div id="Contenedor-Barra-Progreso" style="display:none;"> <!-- Contenedor de Barra de progreso -->
 
-                <div id="progreso-container">
-                    <div id="barra-progreso"></div>
+                <div id="progreso-container"> <!-- Contenedor de la barra (Blanco por defecto) -->
+                    <div id="barra-progreso"></div> <!-- Barra (Verde o Azul) -->
                 </div>
-                    <p class="informacion-progreso"></p>
+                <p class="informacion-progreso"></p> <!-- Informacion sobre el estado de la descarga en % -->
 
             </div>
-
 
         </section>
 
@@ -80,7 +77,6 @@
 
     </div>
 
-    <!--<script src="../static/script.js"></script> -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>

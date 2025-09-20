@@ -1,129 +1,146 @@
-/* Reset y box-sizing */
+/* --- Reset y box-sizing --- */
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; /* Quita margen por defecto de todos los elementos */
+    padding: 0; /* Quita padding por defecto de todos los elementos */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho y alto de los elementos */
 }
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* --- Body general --- */
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f4f8; /* Fondo claro */
-    color: #1a1a1a;
-    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipo de letra principal */
+    background: #f0f4f8; /* Fondo claro de la página */
+    color: #1a1a1a; /* Color de texto oscuro */
+    min-height: 100vh; /* Altura mínima de toda la ventana */
 }
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* --- Contenedor principal --- */
 
 .Contenedor-General {
-    max-width: 1000px;
-    margin: auto;
-    padding: 1rem;
+    max-width: 1000px; /* Ancho máximo del contenedor */
+    margin: auto; /* Centrado horizontal */
+    padding: 1rem; /* Espacio interno */
 }
 
-/* Header */
+/* -------------------------------------------------------------------------------------------- */
+
+/* --- Header --- */
+
 .Cabecera {
-    text-align: center;
-    margin-bottom: 1rem;
+    text-align: center; /* Centrar el texto */
+    margin-bottom: 1rem; /* Espacio debajo del header */
 }
 
 .Titulo {
-    font-size: 1.5rem;
-    margin-bottom: 0.3rem;
-    font-weight: bold;
-    color: #1c3c70; /* Azul oscuro */
+    font-size: 1.5rem; /* Tamaño del título */
+    margin-bottom: 0.3rem; /* Espacio debajo del título */
+    font-weight: bold; /* Negrita */
+    color: #1c3c70; /* Color azul oscuro */
 }
 
 .Sub-Titulo {
-    font-size: 0.9rem;
-    color: #555;
-    font-weight: 400;
+    font-size: 0.9rem; /* Tamaño del subtítulo */
+    color: #555; /* Gris medio */
+    font-weight: 400; /* Peso normal */
 }
 
-/* Sección de descarga */
+/* -------------------------------------------------------------------------------------------- */
+
+/* --- Sección de descarga --- */
+
 .Seccion-Descarga {
-    background: #fff;
-    border-radius: 12px;
-    padding: 0.5rem;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    margin-bottom: 1rem;
-    text-align: center;
+    background: #fff; /* Fondo blanco */
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 0.5rem; /* Espacio interno */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* Sombra suave */
+    margin-bottom: 1rem; /* Espacio debajo de la sección */
+    text-align: center; /* Centrar contenido */
 }
 
 .Seccion-Titulo {
-    font-size: 1.5rem;
-    margin-bottom: 0.7rem;
-    color: #1c3c70;
+    font-size: 1.5rem; /* Tamaño de texto de la sección */
+    margin-bottom: 0.7rem; /* Espacio debajo */
+    color: #1c3c70; /* Color azul oscuro */
 }
 
-/* Inputs */
+/* -------------------------------------------------------------------------------------------- */
+
+/* --- Inputs --- */
+
 .Seccion-Links {
-    margin-bottom: 0.5rem;
-    text-align: left;
+    margin-bottom: 0.5rem; /* Espacio debajo de la sección de enlaces */
+    text-align: left; /* Alinear contenido a la izquierda */
 }
 
 .Label-Text {
-    display: block;
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
-    color: #333;
+    display: block; /* Mostrar como bloque */
+    font-size: 0.95rem; /* Tamaño de letra */
+    margin-bottom: 0.5rem; /* Espacio debajo de la etiqueta */
+    color: #333; /* Gris oscuro */
 }
 
-.Input-Boton {
-    position: relative;
-}
+.Input-Boton { position: relative; /* Para posicionar botones dentro del input */ }
 
 .url-input {
-    width: 100%;
-    padding: 0.7rem 3rem 0.7rem 1rem;
-    font-size: 0.85rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    background: #f9f9f9;
-    transition: all 0.2s;
+    width: 100%; /* Ancho completo del input */
+    padding: 0.7rem 3rem 0.7rem 1rem; /* Espaciado interno (top, right, bottom, left) */
+    font-size: 0.85rem; /* Tamaño de letra */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    outline: none; /* Sin borde extra al enfocar */
+    background: #f9f9f9; /* Fondo claro */
+    transition: all 0.2s; /* Animación suave */
 }
 
 .url-input:focus {
-    border-color: #f59e0b; /* Naranja */
-    box-shadow: 0 0 0 3px rgba(245,158,11,0.2);
+    border-color: #f59e0b; /* Borde naranja al enfocar */
+    box-shadow: 0 0 0 3px rgba(245,158,11,0.2); /* Sombra naranja suave */
 }
 
-/* Botones */
+/* -------------------------------------------------------------------------------------------- */
+
+/* --- Botones --- */
+
 .Btn-Pegar, .Btn-Buscar-Cancion {
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor tipo mano */
+    transition: 0.2s; /* Animación suave */
 }
 
 .Btn-Pegar {
-    position: absolute;
-    top: 50%;
-    right: 8px;
-    transform: translateY(-50%);
-    background: #526bf898;
-    color: #000000;
-    padding: 6px 12px;
-    font-size: 0.8rem;
+    position: absolute; /* Posición relativa al input */
+    top: 50%; /* Centrado vertical */
+    right: 8px; /* Separación derecha */
+    transform: translateY(-50%); /* Ajusta centrado exacto */
+    background: #526bf898; /* Fondo semitransparente */
+    color: #000000; /* Texto negro */
+    padding: 6px 12px; /* Espacio interno */
+    font-size: 0.8rem; /* Tamaño de letra */
 }
 
-.Btn-Pegar:hover {
-    background: #1660a0;
-}
+.Btn-Pegar:hover { background: #1660a0; } /* Cambia fondo al pasar mouse */
 
 .Btn-Buscar-Cancion {
-    padding: 0.7rem 1rem;
-    font-size: 0.8rem;
-    background: #f59e0b; /* Naranja */
-    color: #fff;
-    font-weight: 600;
-    text-transform: uppercase;
+    padding: 0.7rem 1rem; /* Espacio interno */
+    font-size: 0.8rem; /* Tamaño de letra */
+    background: #f59e0b; /* Fondo naranja */
+    color: #fff; /* Texto blanco */
+    font-weight: 600; /* Negrita semi */
+    text-transform: uppercase; /* Texto en mayúsculas */
 }
 
-.Btn-Buscar-Cancion:hover {
-    background: #d97706;
-}
+.Btn-Buscar-Cancion:hover { background: #d97706; } /* Fondo naranja más oscuro al pasar mouse */
 
-/* Footer */
-.Seccion-Footer {
-    text-align: center;
-    color: #777;
-}
+/* -------------------------------------------------------------------------------------------- */
+
+/* --- Footer --- */
+
+.Seccion-Footer { text-align: center; color: #777; }  /* Centrar texto y color de texto */
+
+/* -------------------------------------------------------------------------------------------- */

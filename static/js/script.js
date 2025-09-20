@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.querySelector(".Btn-Buscar-Cancion");
-    const pasteBtn = document.querySelector(".Btn-Pegar");
+    const BtnBuscarCancion = document.querySelector(".Btn-Buscar-Cancion");
+    const BtnPegar = document.querySelector(".Btn-Pegar");
     const input = document.querySelector("#youtube-url");
-    const previewDiv = document.getElementById("preview");
+    const previewDiv = document.getElementById("Informacion-Cancion");
     const loadingDiv = document.querySelector(".loading");
     const progressBar = document.getElementById("barra-progreso");
-    const barra = document.getElementById("barra");
-    const progressText = document.querySelector(".informacion-progreso");
+    const DivContenedorBarra = document.getElementById("Contenedor-Barra-Progreso");
+    const TextoProgreso = document.querySelector(".informacion-progreso");
 
     // -----------------------------
     // Funciones
@@ -45,20 +45,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 <input type="text" id="rename-title" 
                     value="${videoInfo.title.replace(/[<>:"/\\|?*]+/g,'')}">
             </div>
-            <button id="dynamic-download-btn" class="dynamic-download-btn">
+            <button class="Btn-Descargar-Cancion">
                 Descargar Canción 🎵
             </button>
         `;
         previewDiv.style.display = "block";
 
         // Un único listener aquí
-        document.getElementById("dynamic-download-btn").addEventListener("click", () => {
+        document.querySelector(".Btn-Descargar-Cancion").addEventListener("click", () => {
             const renameInput = document.querySelector("#rename-title");
             const customTitle = renameInput.value.trim() || videoInfo.title;
             iniciarDescarga(input.value.trim(), customTitle);
             toggleLoading(false);
-            barra.style.display = "block";
-            progressText.style.display =  "block";
+            DivContenedorBarra.style.display = "block";
+            TextoProgreso.style.display =  "block";
             updateProgress(0, "Descargando... 0%");
         });
     }
@@ -119,19 +119,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateProgress(porcentaje, texto) {
         progressBar.style.width = `${porcentaje}%`;
-        progressText.textContent = texto;
+        TextoProgreso.textContent = texto;
     }
 
     function resetProgress() {
         progressBar.style.width = "0%";
-        progressText.textContent = "";
-        barra.style.display = "none";
+        TextoProgreso.textContent = "";
+        DivContenedorBarra.style.display = "none";
     }
 
     // -----------------------------
     // Listeners
     // -----------------------------
-    btn.addEventListener("click", async () => {
+    BtnBuscarCancion.addEventListener("click", async () => {
         const url = input.value.trim();
         if(!url) { alert("Por favor pega un enlace de YouTube."); return; }
         previewDiv.innerHTML = '';
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    pasteBtn.addEventListener("click", async () => {
+    BtnPegar.addEventListener("click", async () => {
         try {
             const text = await navigator.clipboard.readText();
             if(text) input.value = text.trim();

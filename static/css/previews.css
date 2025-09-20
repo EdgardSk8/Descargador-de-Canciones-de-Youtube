@@ -1,120 +1,124 @@
 /* --- Preview --- */
-#preview {
-    max-width: 100%;
-    margin-top: 0.5rem;
-    border-radius: 8px;
-    color: #1a1a1a;      /* texto oscuro */
-    display: none;
+
+#Informacion-Cancion {
+    max-width: 100%; /* Tamanio cargado al 100% */
+    margin-top: 0.5rem; /* Margen de 0.5 encima de el */
+    border-radius: 8px; /* Borde redondeado */
+    color: #1a1a1a; /* texto oscuro */
+    display: none; /* Div preview oculto */
 }
 
 .preview-titulo {
-    text-align: center;
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    color: #1c3c70; /* título azul suave */
+    text-align: center; /* Texto centrado */
+    font-size: 1.3rem; /* Tamanio de letra */
+    margin-bottom: 0.5rem; /* Margen de 0.5 debajo de el */
+    color: #1c3c70; /* Color de texto */
 }
 
 .preview-info {
-    text-align: center;
-    margin-bottom: 1rem;
-    color: #555;     /* gris suave */
-    font-size: 0.95rem;
+    text-align: center; /* Texto centrado */
+    margin-bottom: 1rem; /* Margen de 1 debajo de el */
+    color: #555; /* color de texto */
+    font-size: 0.95rem; /* Tamanio de letra */
 }
 
 .preview-imagen {
-    width: 100%;
-    max-width: 600px;
-    display: block;
-    margin: 0.5rem auto;
-    border-radius: 6px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%; /* Carga el tamanio 100% de la imagen */
+    max-width: 600px; /* tamanio maximo de 600px */
+    display: block; /* Mostrar Imagen */
+    margin: 0.5rem auto; /* Centrado horizontal mas margin vertical de 0.5 */
+    border-radius: 6px; /* Bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Sombra */
 }
 
+/* -------------------------------------------------------------------------------------------- */
+
 /* --- Spinner --- */
+
 .loading {
-    text-align: center;
-    margin: 20px 0;
+    text-align: center; /* Texto centrado */
+    margin: 20px 0; /* margenes verticales de 20px y 0 de horizontal */
 }
 
 .spinner {
-    border: 4px solid #ccc;
-    border-top: 4px solid #4caf50;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-    padding: 1rem;
-    margin-bottom: 5px;
+    border: 4px solid #ccc; /* Borde gris claro alrededor del círculo */
+    border-top: 4px solid #4caf50; /* Borde superior verde (efecto de movimiento al girar) */
+    border-radius: 50%; /* Hace que el div sea circular */
+    width: 36px; /* Ancho del círculo */
+    height: 36px; /* Alto del círculo */
+    animation: spin 0.3s linear infinite; /* Aplica animación de giro: 1s por vuelta, repetida infinitamente */
+    margin: 0 auto; /* Centra horizontalmente el spinner */
+    padding: 1rem; /* Espaciado interno (aumenta el área alrededor del borde) */
+    margin-bottom: 5px; /* Agrega un pequeño espacio debajo del spinner */
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-.rename-container {
-    margin-top: 10px;
-}
+@keyframes spin { to { transform: rotate(360deg); } } /* Gira 360° */
 
-.rename-container label {
-    font-size: 0.8rem;
-    color: #555; /* gris suave oscuro */
-}
+/* -------------------------------------------------------------------------------------------- */
+
+/* --- Renombrar --- */
+
+.rename-container { margin-top: 10px; } /* Contenedor de input para renombrar, espacio arriba  */
+
+.rename-container label { font-size: 0.8rem; color: #555; } /* Tamanio de letra y color de texto del input de renombrar */
 
 .rename-container input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 4px;
-    border-radius: 6px;
-    border: 1px solid #ccc; /* borde visible en claro */
-    outline: none;
-    background: #f9f9f9;    /* fondo claro */
-    color: #1a1a1a;         /* texto oscuro */
-    transition: all 0.2s;
+    width: 100%; /* ancho completo */
+    padding: 0.5rem; /* espacio interno */
+    margin-top: 4px; /* espacio arriba */
+    border-radius: 6px; /* bordes redondeados */
+    border: 1px solid #ccc; /* borde gris claro */
+    outline: none; /* sin borde extra al enfocar */
+    background: #f9f9f9; /* fondo claro */
+    color: #1a1a1a; /* texto oscuro */
+    transition: all 0.2s; /* animación suave */
 }
 
 .rename-container input:focus {
-    border-color: #f59e0b; /* naranja suave */
-    box-shadow: 0 0 0 3px rgba(245,158,11,0.2);
+    border-color: #f59e0b; /* borde naranja al enfocar */
+    box-shadow: 0 0 0 3px rgba(245,158,11,0.2); /* brillo naranja */
 }
 
-/* Botón dinámico de descarga */
-.dynamic-download-btn {
-    margin-top: 10px;
-    padding: 0.7rem 1.5rem;
-    background: #f59e0b;    /* naranja suave */
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
+.Btn-Descargar-Cancion { /* Botón de descarga */
+    margin-top: 10px; /* espacio arriba */
+    padding: 0.7rem 1.5rem; /* espacio interno */
+    background: #f59e0b; /* fondo naranja */
+    color: #fff; /* texto blanco */
+    border: none; /* sin borde */
+    border-radius: 8px; /* bordes redondeados */
+    cursor: pointer; /* cambia a mano */
+    transition: 0.2s; /* animación suave */
 }
 
-.dynamic-download-btn:hover {
-    background: #d97706;    /* naranja más oscuro al hover */
-}
+.Btn-Descargar-Cancion:hover { background: #d97706; /* fondo más oscuro al pasar mouse */ }
 
-/* ------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------- */
+
+/* --- Contenedor de barra de progreso --- */
 
 #progreso-container {
-    width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 8px;
-    padding: 3px;
-    margin-top: 10px;
+    width: 100%; /* ocupa todo el ancho */
+    background-color: #e0e0e0; /* fondo gris claro */
+    border-radius: 8px; /* bordes redondeados */
+    padding: 3px; /* espacio interno */
+    margin-top: 10px; /* espacio arriba */
 }
 
 #barra-progreso {
-    width: 0%;
-    height: 16px;
-    background-color: #1c7027; /* azul oscuro */
-    border-radius: 6px;
-    transition: width 0.2s ease;
+    width: 0%; /* inicia vacío */
+    height: 16px; /* alto de la barra */
+    background-color: #1c7027; /* verde oscuro */
+    border-radius: 6px; /* bordes redondeados */
+    transition: width 0.2s ease; /* animación suave */
 }
 
 .informacion-progreso {
-    margin-top: 5px;
-    font-size: 0.9rem;
-    color: #555;
-    text-align: center;
+    margin-top: 5px; /* espacio arriba */
+    font-size: 0.9rem; /* tamanio del texto */
+    color: #555; /* color del texto */
+    text-align: center; /* centrado */
 }
+
+/* -------------------------------------------------------------------------------------------- */
+
 

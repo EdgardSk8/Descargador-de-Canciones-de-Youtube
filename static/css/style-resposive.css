@@ -1,12 +1,12 @@
 @media (max-width: 768px) {
 
-.Titulo {font-size: 1rem;}
+.Titulo {font-size: 1rem;} /* Titulo de la Web */
 .Sub-Titulo {font-size: 0.8rem;}
-.Seccion-Titulo {font-size: 1rem;}
-.Label-Text {font-size: 0.80rem;}
+.Seccion-Titulo {font-size: 1rem;} /* Seccion de Titulo dentro del contenedor de Descarga */
+.Label-Text {font-size: 0.80rem;} /* Texto arriba del input de Link */
 .url-input {padding: 0.5rem 0.5rem 0.5rem 0.5rem;font-size: 0.75rem;}
-.Btn-Pegar {padding: 3px 6px;font-size: 0.6rem;}
-.Btn-Buscar-Cancion {padding: 0.5rem 0.8rem;font-size: 0.6rem;}
-.Seccion-Footer {font-size: 0.7rem;}
+.Btn-Pegar {padding: 3px 6px;font-size: 0.6rem;} /* Btn de pegar dentro del input */
+.Btn-Buscar-Cancion {padding: 0.5rem 0.8rem;font-size: 0.6rem;} /* Btn para buscar cancion */
+.Seccion-Footer {font-size: 0.7rem;} /* Estilo del Footer */
 
 }
