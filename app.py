@@ -5,9 +5,9 @@ import threading
 import time
 import uuid
 from flask import Flask, render_template, request, send_file, jsonify, after_this_request
-from mutagen.mp4 import MP4
+from mutagen.mp4 import MP4 # Biblioteca para leer y modificar metadatos de archivos MP4/M4A
 
-app = Flask(__name__)
+app = Flask(__name__) # Crea la instancia de la aplicación Flask
 
 progreso_global = {} # Diccionario global para almacenar el progreso de las descargas
 
