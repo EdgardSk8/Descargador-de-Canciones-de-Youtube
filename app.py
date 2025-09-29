@@ -184,3 +184,16 @@ def download_file(task_id):
 
 if __name__ == "__main__": # Comprueba si este archivo se está ejecutando directamente
     app.run(host="0.0.0.0", port=5000, debug=True)  # host="0.0.0.0" → acepta conexiones desde cualquier IP
+
+# Encender servicio con py app.py
+
+# Actualizar en tonrno de yt-dlp con el comando: python -m pip install -U yt-dlp
+
+# En caso de error desisntalar la version antigua e instalar la version nueva de yt-dlp
+
+# Desinstarlar: py -m pip uninstall yt-dlp -y
+
+# Instalar la nueva version: py -m pip install -U yt-dlp
+
+# Verificar la version instalada: py -m yt_dlp --version
+
