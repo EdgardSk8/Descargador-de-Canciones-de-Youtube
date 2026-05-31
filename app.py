@@ -54,23 +54,54 @@ def descargar_audio_con_progreso(url: str, task_id: str, carpeta="temp") -> tupl
                 "eta": d.get('eta', 0), # Tiempo estimado
                 "speed": d.get('speed', 0) # Velocidad de descarga
             }
-
     ydl_opts = {
-        "format": "bestaudio[ext=m4a]", # Descargar el mejor audio en formato m4a
+        "format": "bestaudio",
         "outtmpl": output_path,
-        "quiet": True, # No mostrar mensajes en consola
+        "quiet": True,
         "noplaylist": True,
-        "progress_hooks": [progreso_hook], # Conectar la función de progreso
-        "writethumbnail": True,  # Descargar miniatura
+        "progress_hooks": [progreso_hook],
+
+        "cookiefile": "cookies.txt",
+
+        "writethumbnail": True,
+
+        # 🔥 CLAVE: JS runtime
+        "js_runtimes": {
+            "node": {
+                "executable_path": "C:\\Program Files\\nodejs\\node.exe"
+            }
+        },
+
+        # 🔥 CLAVE: solver de YouTube (ARREGLA 403)
+        "remote_components": ["ejs:github"],
+
+        # 🔥 CLAVE: cliente alternativo
+
+
+        # 🔥 headers anti bloqueo
+        "http_headers": {
+            "User-Agent": "com.google.android.youtube/17.31.35 (Linux; U; Android 11)"
+        },
+
         "postprocessors": [
-            {"key": "FFmpegMetadata", "add_metadata": True}, # Insertar metadatos con FFmpeg
-            {"key": "EmbedThumbnail"},  # Incrustar la miniatura en el archivo
+            {
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "m4a",
+            },
+            {
+                "key": "FFmpegMetadata",
+                "add_metadata": True
+            },
+            {
+                "key": "EmbedThumbnail"
+            },
         ],
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=True)  # Descargar el video/audio y obtener su información
         filepath = ydl.prepare_filename(info) # Generar la ruta final del archivo descargado
+        filepath = os.path.splitext(filepath)[0] + ".m4a"
 
     return filepath, info # Retorna la ruta del archivo y los metadatos del video
 
