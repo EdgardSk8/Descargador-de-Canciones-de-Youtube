@@ -1,83 +1,258 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Descarga tu música favorita de YouTube de forma rápida y segura">
-
+    <meta name="description" content="Descarga tu música favorita de YouTube de forma rápida y sencilla">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icono.png') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>YouTube Music Downloader</title>
-
-    <link rel="stylesheet" href="../static/css/style.css"> <!-- Estilo general de index -->
-    <link rel="stylesheet" href="../static/css/style-resposive.css"> <!-- Estilo exclusivo para moviles -->
-    <link rel="stylesheet" href="../static/css/previews.css"> <!-- Estilo dinamico cargado desde JS -->
-    <link rel="stylesheet" href="../static/css/previews-resposive.css"> <!-- Estilo exclusivo para moviles -->
-
 </head>
 
-<body>
+<body class="vh-100 d-flex flex-column bg-light overflow-hidden">
 
-    <div class="Contenedor-General"> <!-- Contenedor que cubre toda la web -->
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-dark bg-success py-1 flex-shrink-0">
+        <div class="container-fluid px-3">
+            <span class="navbar-brand fw-semibold fs-6 mb-0">
+                YouTube Music Downloader
+            </span>
 
-        <!-- Seccion de Cabecera -->
-        <header class="Cabecera">
-            <h1 class="Titulo">YouTube Music Downloader</h1>
-            <p class="Sub-Titulo">Descarga tu música favorita de YouTube de forma rápida y sencilla</p>
-        </header>
+            <span id="version-app" class="badge bg-light text-black fw-semibold">
+                v0.0.0
+            </span>
+        </div>
+    </nav>
 
-        <!-- Seccion de Descarga de canciones mas carga dinamica de JS -->
-        <section class="Seccion-Descarga">
+    <!-- CONTENIDO -->
+    <main class="flex-grow-1 d-flex align-items-center justify-content-center overflow-hidden">
 
-            <h2 class="Seccion-Titulo">Descargar Música</h2>
-             
-            <div class="Seccion-Links"> <!-- Seccion del input y boton "pegar" -->
-                <label class="Label-Text">Pega aquí el enlace de YouTube:</label>
+        <div class="container-fluid px-3 px-lg-4">
 
-                <div class="Input-Boton">
-                    <input 
-                        type="url" 
-                        id="youtube-url" 
-                        class="url-input" 
-                        placeholder="https://www.youtube.com/watch?v=..." 
-                        required
-                        pattern="https?://(www\.)?youtube\.com/watch\?v=.*"
-                    >
-                    <button type="button" class="Btn-Pegar">Pegar📋</button>
+            <!-- CONTENEDOR PRINCIPAL -->
+            <section class="bg-white border rounded-4 shadow-sm mx-auto p-3 p-lg-4"
+                style="width: min(92vw, 900px); height: min(74vh, 560px);">
+
+                <!-- SIEMPRE 2 COLUMNAS -->
+                <div class="row h-100 g-3 align-items-center">
+
+                    <!-- COLUMNA IZQUIERDA -->
+                    <div class="col-6 h-100 d-flex flex-column justify-content-center">
+
+                        <div class="text-center mb-3">
+
+                            <h1 class="h5 fw-semibold mb-1">
+                                Descargar música
+                            </h1>
+
+                            <p class="small text-secondary mb-0">
+                                Pega el enlace de una canción de YouTube
+                            </p>
+
+                        </div>
+
+                        <!-- ENLACE -->
+                        <div class="mb-2">
+
+                            <label for="youtube-url" class="form-label small text-secondary mb-1">
+                                Enlace de YouTube
+                            </label>
+
+                            <div class="input-group input-group-sm">
+
+                                <input
+                                    type="url"
+                                    id="youtube-url"
+                                    class="form-control"
+                                    placeholder="https://www.youtube.com/watch?v=..."
+                                    autocomplete="off"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="Btn-Pegar btn btn-light border">
+                                    Pegar
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <!-- BUSCAR -->
+                        <button
+                            type="button"
+                            class="Btn-Buscar-Cancion btn btn-success btn-sm w-100">
+                            Buscar canción
+                        </button>
+
+                        <!-- LOADING -->
+                        <div
+                            class="loading text-center mt-3"
+                            style="height: 30px; visibility: hidden;">
+
+                            <div
+                                class="spinner-border spinner-border-sm text-success"
+                                role="status">
+                            </div>
+
+                            <span class="small text-secondary ms-1">
+                                Cargando información...
+                            </span>
+
+                        </div>
+
+                        <!-- PROGRESO -->
+                        <div
+                            id="Contenedor-Barra-Progreso"
+                            class="mt-1"
+                            style="height: 28px; visibility: hidden;">
+
+                            <div class="progress" style="height: 5px;">
+
+                                <div
+                                    id="barra-progreso"
+                                    class="progress-bar bg-success"
+                                    style="width: 0%;">
+                                </div>
+
+                            </div>
+
+                            <p class="informacion-progreso small text-secondary text-center mb-0 mt-1">
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- COLUMNA DERECHA -->
+                    <div class="col-6 h-100 d-flex flex-column justify-content-center">
+
+                        <div id="Informacion-Cancion" class="text-center">
+
+                            <h2 class="Titulo-Cancion h6 fw-semibold text-dark mb-1">
+                                Sin canción seleccionada
+                            </h2>
+
+                            <p class="Informacion-Cancion-p small text-secondary mb-2">
+                                Duración: -- · Autor: --
+                            </p>
+
+                            <!-- IMAGEN FIJA -->
+                            <div
+                                class="ratio ratio-16x9 bg-light border rounded-3 overflow-hidden mx-auto mb-3 w-75">
+
+                                <img
+                                    src="{{ url_for('static', filename='sinimagen.png') }}"
+                                    class="Imagen-Caratula w-100 h-100 object-fit-contain"
+                                    alt="Carátula">
+
+                            </div>
+
+                            <!-- NOMBRE -->
+                            <div class="text-start mb-2">
+
+                                <label
+                                    for="rename-title"
+                                    class="form-label small text-secondary mb-1">
+                                    Nombre del archivo
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="rename-title"
+                                    class="form-control form-control-sm"
+                                    placeholder="Nombre de la canción"
+                                    disabled>
+
+                            </div>
+
+                            <!-- DESCARGAR -->
+                            <button
+                                type="button"
+                                class="Btn-Descargar-Cancion btn btn-success btn-sm w-100"
+                                disabled>
+                                Descargar canción
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-success text-white text-center py-1 flex-shrink-0">
+
+        <div class="container-fluid d-flex justify-content-center gap-2 flex-wrap">
+
+            <p class="small mb-0">
+                &copy; 2025 YouTube Music Downloader
+            </p>
+
+            <p class="small opacity-75 mb-0">
+                Respeta los derechos de autor y las políticas de YouTube.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <!-- MODAL ACTUALIZACIÓN -->
+    <div class="modal fade" id="modalActualizacion" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title fs-6">
+                        Nueva actualización
+                    </h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                    </button>
+                </div>
+
+                <div class="modal-body text-center py-3">
+                    <p class="small mb-1">
+                        Hay una nueva versión disponible.
+                    </p>
+
+                    <p id="version-nueva" class="fw-semibold mb-2"></p>
+
+                    <p id="mensaje-actualizacion" class="small text-secondary mb-0"></p>
+                </div>
+
+                <div class="modal-footer py-2">
+                    <button
+                        type="button"
+                        class="btn btn-light btn-sm"
+                        data-bs-dismiss="modal">
+                        Después
+                    </button>
+
+                    <button
+                        type="button"
+                        id="btn-actualizar"
+                        class="btn btn-success btn-sm">
+                        Actualizar
+                    </button>
                 </div>
             </div>
-
-            <!-- Btn para buscar cancion -->
-            <button class="Btn-Buscar-Cancion" data-action="audio-video">Buscar Canción 🎵</button> 
-            
-            <div id="Informacion-Cancion"></div> <!-- Div que muestra la carga dinamica de JS (Caratula, Duracion) -->
-
-            <div class="loading" style="display:none;"> <!-- Div que carga el "Spinner" de carga -->
-
-                <div class="spinner"></div> <!-- Clase Spinner -->
-                <p>Cargando información</p>
-
-            </div>
-
-            <div id="Contenedor-Barra-Progreso" style="display:none;"> <!-- Contenedor de Barra de progreso -->
-
-                <div id="progreso-container"> <!-- Contenedor de la barra (Blanco por defecto) -->
-                    <div id="barra-progreso"></div> <!-- Barra (Verde o Azul) -->
-                </div>
-                <p class="informacion-progreso"></p> <!-- Informacion sobre el estado de la descarga en % -->
-
-            </div>
-
-        </section>
-
-        <!-- Footer Section -->
-        <footer class="Seccion-Footer">
-            <p>&copy; 2025 YouTube Music Downloader. Todos los derechos reservados.</p>
-            <p>Respeta los derechos de autor y las políticas de YouTube.</p>
-        </footer>
-
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
+
 </html>

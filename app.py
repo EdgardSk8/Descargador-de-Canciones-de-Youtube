@@ -1,16 +1,49 @@
+import urllib.request
+import json
+import subprocess
+import sys
+import tempfile
+import shutil
 import os
 import yt_dlp
-import mimetypes
+# import mimetypes
 import threading
 import time
 import uuid
 from flask import Flask, render_template, request, send_file, jsonify, after_this_request
 from mutagen.mp4 import MP4 # Biblioteca para leer y modificar metadatos de archivos MP4/M4A
+from version import VERSION
 
 app = Flask(__name__) # Crea la instancia de la aplicación Flask
 
+#Nuevo para produccion
+DOWNLOAD_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
+os.makedirs(DOWNLOAD_DIR, exist_ok=True)
+###################################################################
+
 progreso_global = {} # Diccionario global para almacenar el progreso de las descargas
 
+@app.route("/version")
+def version():
+    return jsonify({"version": VERSION})
+
+
+@app.route("/actualizacion")
+def actualizacion():
+    try:
+        url = "https://raw.githubusercontent.com/EdgardSk8/Descargador-de-Canciones-de-Youtube/main/version.json"
+
+        with urllib.request.urlopen(url, timeout=5) as respuesta:
+            datos = json.loads(respuesta.read().decode("utf-8"))
+
+        return jsonify(datos)
+
+    except Exception:
+        return jsonify({
+            "version": VERSION,
+            "url": "",
+            "mensaje": ""
+        })
 # -------------------------------------------------------------------------------------------------------------------------------- #
 
 def obtener_info(url: str) -> dict: # Funcion para obtener la informacion del video
@@ -25,21 +58,76 @@ def obtener_info(url: str) -> dict: # Funcion para obtener la informacion del vi
         "uploader": info.get("uploader", "Desconocido"), # Canal de quien subio el video
     }
 
+
+@app.route("/actualizar", methods=["POST"])
+def actualizar():
+    try:
+        data = request.get_json()
+        url = data.get("url")
+
+        if not url:
+            return jsonify({
+                "error": "No se proporcionó la URL de actualización"
+            }), 400
+
+        if not getattr(sys, "frozen", False):
+            return jsonify({
+                "error": "La actualización automática solo funciona en el .exe"
+            }), 400
+
+        updater = os.path.join(
+            tempfile.gettempdir(),
+            "downloader_updater.exe"
+        )
+
+        shutil.copyfile(
+            os.path.join(
+                sys._MEIPASS,
+                "updater.exe"
+            ),
+            updater
+        )
+
+        subprocess.Popen([
+            updater,
+            url,
+            sys.executable
+        ])
+
+        threading.Thread(
+            target=lambda: (
+                time.sleep(1),
+                os._exit(0)
+            ),
+            daemon=True
+        ).start()
+
+        return jsonify({
+            "ok": True
+        })
+
+    except Exception as e:
+        return jsonify({
+            "error": str(e)
+        }), 500
 # -------------------------------------------------------------------------------------------------------------------------------- #
 
-def limpiar_archivo(filepath: str, delay: int = 5): # Funcion que borra un archivo con un retrado de 5 segundos
-    def _remove(path):
-        time.sleep(delay) # Espera 5 seg en delay
-        try: os.remove(path); print(f"\n[✔] Eliminado: {path}\n") # Intenta eliminar el archivo, en caso de ser exitoso mostrar el primer mensaje
-        except Exception as e: print(f"[✘] No se pudo eliminar {path}: {e}") # Del caso contrario mostrar 
-    threading.Thread(target=_remove, args=(filepath,), daemon=True).start() # En caso de fallar mostrar detalladamente el error
+# def limpiar_archivo(filepath: str, delay: int = 5): # Funcion que borra un archivo con un retrado de 5 segundos
+#     def _remove(path):
+#         time.sleep(delay) # Espera 5 seg en delay
+#         try: os.remove(path); print(f"\n[✔] Eliminado: {path}\n") # Intenta eliminar el archivo, en caso de ser exitoso mostrar el primer mensaje
+#         except Exception as e: print(f"[✘] No se pudo eliminar {path}: {e}") # Del caso contrario mostrar 
+#     threading.Thread(target=_remove, args=(filepath,), daemon=True).start() # En caso de fallar mostrar detalladamente el error
 
 # -------------------------------------------------------------------------------------------------------------------------------- #
 
 # Define la función, recibe URL, ID de tarea y carpeta destino
-def descargar_audio_con_progreso(url: str, task_id: str, carpeta="temp") -> tuple[str, dict]:
-    os.makedirs(carpeta, exist_ok=True) # Crea una carpeta, en caso que no exista crearla
-    output_path = os.path.join(carpeta, "%(title)s.%(ext)s") # Ruta de salida con nombre según título y extensión
+#def descargar_audio_con_progreso(url: str, task_id: str, carpeta="temp") -> tuple[str, dict]:
+ #   os.makedirs(carpeta, exist_ok=True) # Crea una carpeta, en caso que no exista crearla
+   # output_path = os.path.join(carpeta, "%(title)s.%(ext)s") # Ruta de salida con nombre según título y extensión
+
+def descargar_audio_con_progreso(url: str, task_id: str) -> tuple[str, dict]:
+    output_path = os.path.join(DOWNLOAD_DIR, "%(title)s.%(ext)s")
 
     def progreso_hook(d): # Funcion que actualiza el proceso de descarga
         if d['status'] == 'downloading': # Si el estado de descarga es "Downloanding"
@@ -187,26 +275,26 @@ def progreso(task_id):
 
 # -------------------------------------------------------------------------------------------------------------------------------- #
 
-@app.route("/download_file/<task_id>") # Definicion de ruta para descargar archivo final
+# @app.route("/download_file/<task_id>") # Definicion de ruta para descargar archivo final
 
-def download_file(task_id):
+# def download_file(task_id):
     
-    data = progreso_global.get(task_id) # Obtiene los datos de progreso de la tarea usando su ID
+#     data = progreso_global.get(task_id) # Obtiene los datos de progreso de la tarea usando su ID
 
-    if not data or "filepath" not in data: return "Archivo no disponible", 404 # Si no existe la tarea devolver error
+#     if not data or "filepath" not in data: return "Archivo no disponible", 404 # Si no existe la tarea devolver error
 
-    filepath = data["filepath"] # Ruta del archivo en el servidor
-    filename = data["custom_title"] + ".m4a" # Nombre nuevo asignado
+#     filepath = data["filepath"] # Ruta del archivo en el servidor
+#     filename = data["custom_title"] + ".m4a" # Nombre nuevo asignado
 
-    @after_this_request # Decorador que ejecuta una función justo después de enviar la respuesta
+#     @after_this_request # Decorador que ejecuta una función justo después de enviar la respuesta
 
-    def _remove_file(response):  # Función interna para eliminar el archivo después de enviarlo
-        limpiar_archivo(filepath)  # Llama a la función que borra el archivo en segundo plano
-        return response # Devuelve respuesta
+#     def _remove_file(response):  # Función interna para eliminar el archivo después de enviarlo
+#         limpiar_archivo(filepath)  # Llama a la función que borra el archivo en segundo plano
+#         return response # Devuelve respuesta
 
-    mime_type, _ = mimetypes.guess_type(filepath)  # Detecta el tipo MIME del archivo según su extensión
-    return send_file(filepath, as_attachment=True, download_name=filename, mimetype=mime_type or "audio/mp4") # Envía el archivo como descarga, con el nombre correcto y el tipo MIME adecuado
-    # MIME = Extensiones de Correo de Internet Multipropósito
+#     mime_type, _ = mimetypes.guess_type(filepath)  # Detecta el tipo MIME del archivo según su extensión
+#     return send_file(filepath, as_attachment=True, download_name=filename, mimetype=mime_type or "audio/mp4") # Envía el archivo como descarga, con el nombre correcto y el tipo MIME adecuado
+#     # MIME = Extensiones de Correo de Internet Multipropósito
     # Se usa para decirle al navegador qué tipo de archivo está descargando, así puede manejarlo correctamente
 
 # -----------------------#
@@ -219,6 +307,7 @@ if __name__ == "__main__": # Comprueba si este archivo se está ejecutando direc
 # Encender servicio con py app.py
 
 # Actualizar en tonrno de yt-dlp con el comando: python -m pip install -U yt-dlp
+# Nueva actualizacion: python.exe -m pip install --upgrade pip
 
 # En caso de error desisntalar la version antigua e instalar la version nueva de yt-dlp
 
