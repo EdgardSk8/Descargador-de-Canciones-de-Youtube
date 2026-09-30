@@ -31,7 +31,7 @@ def version():
 @app.route("/actualizacion")
 def actualizacion():
     try:
-        url = "https://raw.githubusercontent.com/EdgardSk8/Descargador-de-Canciones-de-Youtube/main/version.json"
+        url = "https://raw.githubusercontent.com/EdgardSk8/Descargador-de-Canciones-de-Youtube/refs/heads/main/version.json"
 
         with urllib.request.urlopen(url, timeout=5) as respuesta:
             datos = json.loads(respuesta.read().decode("utf-8"))
